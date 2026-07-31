@@ -26,6 +26,7 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 import org.commonlib5.lambda.FunctionTrowException;
 import static org.commonlib5.lambda.LEU.*;
+import org.commonlib5.lambda.PairFunctionTrowException;
 
 /**
  * Join di stringhe in varie salse.
@@ -391,6 +392,25 @@ public class StringJoin implements Serializable, Cloneable, Iterable<String>
       if(c != null)
         stringhe.add(fun.apply(c));
     }
+    return this;
+  }
+
+  public <K, V> StringJoin addMap(Map<K, V> themap, PairFunctionTrowException<K, V, String> fun)
+  {
+    try
+    {
+      for(Map.Entry<K, V> entry : themap.entrySet())
+      {
+        K key = entry.getKey();
+        V val = entry.getValue();
+        stringhe.add(fun.apply(key, val));
+      }
+    }
+    catch(Exception ex)
+    {
+      throw new RuntimeException(ex);
+    }
+
     return this;
   }
 
