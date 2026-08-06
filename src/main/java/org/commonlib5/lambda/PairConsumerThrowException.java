@@ -20,8 +20,8 @@ package org.commonlib5.lambda;
 import java.util.Objects;
 
 /**
- * Represents an operation that accepts a single input argument and returns no
- * result. Unlike most other functional interfaces, {@code ConsumerThrowException} is expected
+ * Represents an operation that accepts a pair of input argument and returns no
+ * result. Unlike most other functional interfaces, {@code PairConsumerThrowException} is expected
  * to operate via side-effects.
  * Questa versione usa due operatori.
  *
