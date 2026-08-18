@@ -20,6 +20,8 @@ package org.commonlib5.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
@@ -688,5 +690,45 @@ public class DateTime
   {
     long diff = Math.abs(d2.getTime() - d1.getTime());
     return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+  }
+
+  /**
+   * Converte una data in formato ISO 8601 (es. 2026-08-20T13:00:00.000Z) in
+   * java.util.Date.
+   * Il formato è spesso usato nei messaggi json.
+   *
+   * @param val stringa ISO 8601 con indicazione di zona (Z oppure +hh:mm)
+   * @return la data corrispondente oppure null se val è vuota
+   */
+  public static Date parseDateIso8601(String val)
+  {
+    if((val = StringOper.okStrNull(val)) == null)
+      return null;
+
+    return Date.from(OffsetDateTime.parse(val, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toInstant());
+  }
+
+  /**
+   * Converte una data in formato ISO 8601 (es. 2026-08-20T13:00:00.000Z) in
+   * java.util.Date.
+   * Il formato è spesso usato nei messaggi json.
+   *
+   * @param val stringa ISO 8601 con indicazione di zona (Z oppure +hh:mm)
+   * @param defVal valore di default
+   * @return la data corrispondente oppure null se val è vuota
+   */
+  public static Date parseDateIso8601(String val, Date defVal)
+  {
+    if((val = StringOper.okStrNull(val)) == null)
+      return defVal;
+
+    try
+    {
+      return Date.from(OffsetDateTime.parse(val, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toInstant());
+    }
+    catch(Exception e)
+    {
+      return defVal;
+    }
   }
 }
