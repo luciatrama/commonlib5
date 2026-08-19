@@ -677,6 +677,14 @@ public class DateTime
     {
     }
 
+    try
+    {
+      return parseDateIso8601(s).getTime();
+    }
+    catch(Exception ex)
+    {
+    }
+
     return 0;
   }
 
