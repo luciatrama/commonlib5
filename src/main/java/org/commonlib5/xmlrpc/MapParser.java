@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -256,5 +257,12 @@ public class MapParser extends AbstractMap<Object, Object>
   {
     String tmp = StringOper.okStr(get(key), defVal);
     return StringOper.isEquStringSplit(tmp, regexp, test);
+  }
+
+  public Map<String, Object> toMapPure()
+  {
+    Map<String, Object> rv = new HashMap<>();
+    this.forEach((k, v) -> rv.put(k.toString(), v));
+    return rv;
   }
 }
